@@ -43,10 +43,11 @@ class AppointmentsRepository implements IAppointmentsRepository {
 
   public async findAllInDayFromProvider({
     provider_id,
+    day,
     month,
     year,
   }: IFindAllInDayFromProviderDTO): Promise<Appointment[]> {
-    const parsedDay = String(month).padStart(2, '0');
+    const parsedDay = String(day).padStart(2, '0');
     const parsedMonth = String(month).padStart(2, '0');
 
     const appointments = await this.ormRepository.find({
@@ -66,7 +67,11 @@ class AppointmentsRepository implements IAppointmentsRepository {
     user_id,
     date,
   }: ICreateAppointmentDTO): Promise<Appointment> {
-    const appointment = this.ormRepository.create({ provider_id, date });
+    const appointment = this.ormRepository.create({
+      provider_id,
+      date,
+      user_id,
+    });
 
     await this.ormRepository.save(appointment);
 
