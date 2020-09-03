@@ -42,7 +42,7 @@ class ListProviderMonthAvailabilityService {
     );
 
     const availability = eachDayArray.map(day => {
-      const compareDate = new Date(year, month - 1, day);
+      const compareDate = new Date(year, month - 1, day + 1);
 
       const appointmentsInDay = appointments.filter(appointment => {
         return getDate(appointment.date) === day;
